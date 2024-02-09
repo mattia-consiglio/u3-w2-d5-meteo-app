@@ -30,24 +30,26 @@ function CurrentWeather({ search, setMeteoColor }) {
 	}
 
 	useEffect(() => {
-		setError(false)
-		setLoading(true)
-		setErrorMsg('')
-		const fetchData = async () => {
-			const result = await api(0, 0, { q: search })
-			console.log(result)
-			if (result.status === 'error' || parseInt(result.data.cod) !== 200) {
-				setError(true)
-				setErrorMsg(result.data.message)
-			} else {
-				console.log(result.data)
-				setResult(result.data)
-				const weatherId = result.data.weather[0].id
-				setMeteoColor(getMeteoColor(weatherId))
+		if (search !== '') {
+			setError(false)
+			setLoading(true)
+			setErrorMsg('')
+			const fetchData = async () => {
+				const result = await api(0, 0, { q: search })
+				console.log(result)
+				if (result.status === 'error' || parseInt(result.data.cod) !== 200) {
+					setError(true)
+					setErrorMsg(result.data.message)
+				} else {
+					console.log(result.data)
+					setResult(result.data)
+					const weatherId = result.data.weather[0].id
+					setMeteoColor(getMeteoColor(weatherId))
+				}
+				setLoading(false)
 			}
-			setLoading(false)
+			fetchData()
 		}
-		fetchData()
 	}, [search, setMeteoColor])
 
 	return (

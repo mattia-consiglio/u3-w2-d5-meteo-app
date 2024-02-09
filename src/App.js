@@ -11,6 +11,7 @@ import HourlyWeather from './Components/HourlyWeather'
 function App() {
 	const [lastSearch, setLastSearch] = useState('')
 	const [meteoColor, setMeteoColor] = useState('white')
+	const [coordinates, setCoordinates] = useState({ lat: 0, lon: 0 })
 
 	return (
 		<div className={'App ' + meteoColor}>

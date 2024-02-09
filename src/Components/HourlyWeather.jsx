@@ -13,19 +13,21 @@ function HourlyWeather({ search }) {
 	const [error, setError] = useState(false)
 
 	useEffect(() => {
-		setError(false)
-		setLoading(true)
-		const fetchData = async () => {
-			const result = await api(0, 1, { q: search })
-			if (result.status === 'error') {
-				setError(true)
-			} else {
-				console.log(result.data)
-				setResult(result.data)
+		if (search !== '') {
+			setError(false)
+			setLoading(true)
+			const fetchData = async () => {
+				const result = await api(0, 1, { q: search })
+				if (result.status === 'error' || parseInt(result.data.cod) !== 200) {
+					setError(true)
+				} else {
+					console.log(result.data)
+					setResult(result.data)
+				}
+				setLoading(false)
 			}
-			setLoading(false)
+			fetchData()
 		}
-		fetchData()
 	}, [search])
 
 	return (
