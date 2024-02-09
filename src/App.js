@@ -9,18 +9,32 @@ import Col from 'react-bootstrap/Col'
 import HourlyWeather from './Components/HourlyWeather'
 
 function App() {
-	const [lastSearch, setLastSearch] = useState('')
-	const [meteoColor, setMeteoColor] = useState('white')
-	const [coordinates, setCoordinates] = useState({ lat: 0, lon: 0 })
+	const [lastSearch, setLastSearch] = useState('') //1
+	const [meteoColor, setMeteoColor] = useState('white') //2
+	const [coordinates, setCoordinates] = useState({ lat: 0, lon: 0 }) //3
+	const [openDropdown, setDropdownOpen] = useState(false) //4
 
 	return (
-		<div className={'App ' + meteoColor}>
+		<div
+			className={'App ' + meteoColor}
+			onClick={e => {
+				if (!e.target.closest('#dropdow') && !e.target.closest('#search')) {
+					setDropdownOpen(false)
+				}
+			}}
+		>
 			<header>
-				<Searchbar lastSearch={lastSearch} setLastSearch={setLastSearch} />
+				<Searchbar
+					lastSearch={lastSearch}
+					setLastSearch={setLastSearch}
+					setCoordinates={setCoordinates}
+					openDropdown={openDropdown}
+					setDropdownOpen={setDropdownOpen}
+				/>
 			</header>
 			<main>
-				<CurrentWeather search={lastSearch} setMeteoColor={setMeteoColor} />
-				<HourlyWeather search={lastSearch} />
+				<CurrentWeather coordinates={coordinates} setMeteoColor={setMeteoColor} />
+				<HourlyWeather coordinates={coordinates} />
 			</main>
 			<footer></footer>
 		</div>

@@ -7,17 +7,18 @@ import LoadingErrorState from './LoadingErrorState'
 import api from '../api'
 import { formatTemp } from '../utils'
 
-function HourlyWeather({ search }) {
+function HourlyWeather({ coordinates }) {
 	const [result, setResult] = useState({})
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(false)
 
 	useEffect(() => {
-		if (search !== '') {
+		const { lat, lon } = coordinates
+		if (coordinates !== '') {
 			setError(false)
 			setLoading(true)
 			const fetchData = async () => {
-				const result = await api(0, 1, { q: search })
+				const result = await api(0, 1, { lat, lon })
 				if (result.status === 'error' || parseInt(result.data.cod) !== 200) {
 					setError(true)
 				} else {
@@ -28,7 +29,7 @@ function HourlyWeather({ search }) {
 			}
 			fetchData()
 		}
-	}, [search])
+	}, [coordinates])
 
 	return (
 		<>

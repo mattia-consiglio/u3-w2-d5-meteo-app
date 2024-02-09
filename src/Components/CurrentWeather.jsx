@@ -7,7 +7,7 @@ import LoadingErrorState from './LoadingErrorState'
 import api from '../api'
 import { formatTemp, getDay } from '../utils'
 
-function CurrentWeather({ search, setMeteoColor }) {
+function CurrentWeather({ coordinates, setMeteoColor }) {
 	const [result, setResult] = useState({})
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(false)
@@ -30,12 +30,13 @@ function CurrentWeather({ search, setMeteoColor }) {
 	}
 
 	useEffect(() => {
-		if (search !== '') {
+		const { lat, lon } = coordinates
+		if (lat !== '' && lon !== '') {
 			setError(false)
 			setLoading(true)
 			setErrorMsg('')
 			const fetchData = async () => {
-				const result = await api(0, 0, { q: search })
+				const result = await api(0, 0, { lat, lon })
 				console.log(result)
 				if (result.status === 'error' || parseInt(result.data.cod) !== 200) {
 					setError(true)
@@ -50,7 +51,7 @@ function CurrentWeather({ search, setMeteoColor }) {
 			}
 			fetchData()
 		}
-	}, [search, setMeteoColor])
+	}, [coordinates, setMeteoColor])
 
 	return (
 		<>
