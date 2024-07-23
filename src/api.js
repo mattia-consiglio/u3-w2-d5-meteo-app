@@ -3,7 +3,7 @@ const api = async (type, endpoint, query = {}) => {
 		'https://api.openweathermap.org/data/2.5/',
 		'http://api.openweathermap.org/geo/1.0/',
 	]
-	const key = '9302b97031b74e0c9c322df44351a906'
+	const key = process.env.API_KEY
 	const endpoints = type === 0 ? ['weather', 'forecast', 'forecast/daily'] : ['direct', 'reverse']
 
 	if (type === 0) {
