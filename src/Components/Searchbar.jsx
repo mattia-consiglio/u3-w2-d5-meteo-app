@@ -134,7 +134,7 @@ function Searchbar({ lastSearch, setLastSearch, setCoordinates, openDropdown, se
 								{(loading || error) && (
 									<ListGroup.Item>
 										{loading && 'Caricamento...'}
-										{error && errorMsg}
+										{error && 'Errore: ' + errorMsg}
 									</ListGroup.Item>
 								)}
 								{!loading &&

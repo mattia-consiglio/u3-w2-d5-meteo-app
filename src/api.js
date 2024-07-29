@@ -1,7 +1,7 @@
 const api = async (type, endpoint, query = {}) => {
 	const types = [
 		'https://api.openweathermap.org/data/2.5/',
-		'http://api.openweathermap.org/geo/1.0/',
+		'https://api.openweathermap.org/geo/1.0/',
 	]
 	const key = process.env.REACT_APP_API_KEY
 	const endpoints = type === 0 ? ['weather', 'forecast', 'forecast/daily'] : ['direct', 'reverse']
